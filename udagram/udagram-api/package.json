@@ -13,7 +13,8 @@
     "prod": "npx tsc && node ./www/server.js",
     "clean": "rm -rf www/ || true",
     "build": "npm install . && npm run clean && tsc && cp -rf src/config www/config && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
-    "deploy": "npm run build && eb list && eb use udagram-api-dev && eb deploy",
+    "set:env": "eb setenv POSTGRES_HOST=$POSTGRES_HOST DB_PORT=$DB_PORT PORT=$PORT POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_USERNAME=$POSTGRES_USERNAME POSTGRES_DB=$POSTGRES_DB AWS_REGION=$AWS_REGION AWS_PROFILE=$AWS_PROFILE AWS_BUCKET=$AWS_BUCKET URL=$URL AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY JWT_SECRET=$JWT_SECRET",
+    "deploy": "npm run build && eb list && eb use udagram-api-dev && eb deploy && npm run set:env",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
